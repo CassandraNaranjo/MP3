@@ -1,0 +1,30 @@
+---
+title: "MP3"
+author: "Cassie Naranjo"
+date: "4/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(tidyverse)
+library(sf)
+library(macleish)
+library(leaflet)
+```
+
+```{r}
+macleish_layers[["landmarks"]] %>%
+  plot()
+```
+
+```{r}
+parking <- data.frame(lat = 42.448013, lon = -72.68066)
+base_plot <- leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = ~lon, lat = ~lat, data = parking,
+             popup = "Parking Lot")
+base_plot
+```
