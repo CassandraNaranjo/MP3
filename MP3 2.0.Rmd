@@ -37,4 +37,34 @@ base_plot <- leaflet() %>%
              popup = "Group Campsite")
 base_plot
 ```
+Location of Remote Campsite
+```{r}
+remote_campsite <- data.frame(lat = 42.458549, lon = -72.679581)
+base_plot <- leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = ~lon, lat = ~lat, data = remote_campsite,
+             popup = "Remote Campsite")
+base_plot
+```
+
+Plot of all 3 sites 
+```{r}
+base_plot <- leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,
+             popup = "Group Campsite") %>%
+  addMarkers(lng = ~lon, lat = ~lat, data = remote_campsite,
+             popup = "Remote Campsite") %>%
+  addMarkers(lng = ~lon, lat = ~lat, data = parking,
+             popup = "Parking Lot") 
+  base_plot
+```
+
+```{r}
+boundary <- macleish_layers %>% 
+  pluck("boundary")
+
+base_plot %>%
+  addPolygons(data = boundary, color = "black")
+```
 
