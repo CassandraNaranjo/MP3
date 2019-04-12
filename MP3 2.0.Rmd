@@ -19,7 +19,7 @@ library(leaflet)
 macleish_layers[["landmarks"]] %>%
   plot()
 ```
-
+Location of Parking Lot 
 ```{r}
 parking <- data.frame(lat = 42.448013, lon = -72.68066)
 base_plot <- leaflet() %>%
@@ -28,3 +28,13 @@ base_plot <- leaflet() %>%
              popup = "Parking Lot")
 base_plot
 ```
+Location of Group Campsite 
+```{r}
+group_campsite <- data.frame(lat = 42.450976, lon = -72.678154)
+base_plot <- leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,
+             popup = "Group Campsite")
+base_plot
+```
+
