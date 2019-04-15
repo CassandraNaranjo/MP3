@@ -6,6 +6,9 @@ output:
   html_document:
     code_folding: hide
 ---
+*Introduction:*
+Have you ever wanted to go the Macleish Station and enjoy a campsite with friends or on your own, but don't actually want to hike to the campsite? Or perhaps, you are physically unable to hike to one of the already resurrected campsites? Well, we have a solution for you! We have used spatial data of the Macleish Field Station to discover two new campsites locations that are easily accessible from the main parking lot or Conway Road. Both of these proposed campsites follow the guidelines of less than .5 miles way from the parking lot and 200 feet away from a stream or other body of water, more than 500 feet away from a challenge course or research area, relatively flat, within the boundraries of Macleish, and positioned in vegetation that is unlike the two campsites that already exist, the group campsite and the remote campsite.
+
 +1 for having at least 500 words and no more than 800 words
 
 ```{r,include = FALSE, echo = FALSE}
@@ -15,7 +18,6 @@ library(macleish)
 library(leaflet)
 ```
 
-Have you ever wanted to go the Macleish Station and enjoy a campsite with friends or on your own, but don't actually want to hike to the campsite? Or perhaps, you are physically unable to hike to one of the already resurrected campsites? Well, we have a solution for you! We have used spatial data of the Macleish Field Station to discover two new campsites locations that are easily accessible from the main parking lot or Conway Road. Both of these proposed campsites follow the guidelines of less than .5 miles way from the parking lot and 200 feet away from a stream or other body of water, more than 500 feet away from a challenge course or research area, relatively flat, within the boundraries of Macleish, and positioned in vegetation that is unlike the two campsites that already exist, the group campsite and the remote campsite.
 
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 #Determing the location of the Parking Lot 
@@ -210,7 +212,7 @@ addMarkers(lng = ~lon, lat = ~lat, data = RedOak_campsite, popup = "New Campsite
   addPolygons(data = buffer_research, weight = 1, color = "yellow")
 ```
 
-Discussion:
+*Discussion:*
 When looking at the group and remote campsites that already exist, they are situated in Old Field White Pine Forest and Sugar Maple Forest, respectively. The campsites that we are suggesting, New Campsite #1 and New Campsite #2, are located in Old Pasture Black Birch Forest and Red Oak Forest, respectively. These two campsites abide by the set criteria, other than the New Campsite #2, the Red Oak Campsite, being right on the cusp of the 500 feet border of a research area.
 
 +1 for including relevant external information in your analysis
