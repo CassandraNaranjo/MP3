@@ -25,7 +25,7 @@ do you see any major roadblocks?
 +0–2 reflects the professor’s judgment of the overall quality of your submission
 0: graphics are relatively simple, confusing, sloppily executed, or not well thought out; analysis is muddled or uninformed
 1: a solid all-around effort, graphics are appropriate, labeled, and contextualized; analysis is reasonable, considered, and well-researched
-2: graphics are special, showing creativity, an original design, and/or exceptional attention to detail; analysis is exceptionally thorough and well thought out
+2: graphics are special, showing creativity, an original design, and/or exceptional attention to detail; analysis is exceptionally thorough and well thought 
 
 ```{r,include = FALSE, echo = FALSE}
 library(tidyverse)
