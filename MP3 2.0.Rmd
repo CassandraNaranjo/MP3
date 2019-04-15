@@ -2,8 +2,9 @@
 title: "MP3"
 author: "Cassie Naranjo"
 date: "4/12/2019"
-output: html_document:
-  code_folding: hide
+output:
+  html_document:
+    code_folding: hide
 ---
 To do:
 +1 unnecessary messages from R are hidden from being displayed in the HTML
@@ -98,11 +99,6 @@ Not sure how to make a buffer around the streams using leaflet...
 
 Looking at forest types...Tells us where the different forest types are but not what each one represents color wise. Maybe if we could add a legend to know what the colors represent?
 
-```{r, echo = FALSE}
-macleish_layers[["forests"]] %>%
-plot() %>%
-addLegend(colors = "Sheet1_Ve") 
-```
 
 Looking at forest types:
 Naming the color palette:
