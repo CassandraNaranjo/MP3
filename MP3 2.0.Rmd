@@ -8,8 +8,6 @@ output:
 ---
 +1 for having at least 500 words and no more than 800 words
 
-Problem Statement: 
-
 ```{r,include = FALSE, echo = FALSE}
 library(tidyverse)
 library(sf)
@@ -17,7 +15,6 @@ library(macleish)
 library(leaflet)
 ```
 
-Introduction:
 Have you ever wanted to go the Macleish Station and enjoy a campsite with friends or on your own, but don't actually want to hike to the campsite? Or perhaps, you are physically unable to hike to one of the already resurrected campsites? Well, we have a solution for you! We have used spatial data of the Macleish Field Station to discover two new campsites locations that are easily accessible from the main parking lot or Conway Road. Both of these proposed campsites follow the guidelines of less than .5 miles way from the parking lot and 200 feet away from a stream or other body of water, more than 500 feet away from a challenge course or research area, relatively flat, within the boundraries of Macleish, and positioned in vegetation that is unlike the two campsites that already exist, the group campsite and the remote campsite.
 
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
