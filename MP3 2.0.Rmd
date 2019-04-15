@@ -1,9 +1,10 @@
 ---
 title: "MP3"
-author: "Cassie Naranjo"
-date: "4/12/2019"
-output: html_document:
-  code_folding: hide
+author: "Cassie Naranjo and Amelia Stapleton"
+date: "4/15/2019"
+output: 
+  html_document:
+  code_folding: show
 ---
 To do:
 +1 unnecessary messages from R are hidden from being displayed in the HTML
@@ -33,7 +34,7 @@ library(macleish)
 library(leaflet)
 ```
 Location of Parking Lot 
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 parking <- data.frame(lat = 42.448013, lon = -72.68066)
 base_plot <- leaflet() %>%
   addTiles() %>%
@@ -42,7 +43,7 @@ base_plot <- leaflet() %>%
 base_plot
 ```
 Location of Group Campsite 
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 group_campsite <- data.frame(lat = 42.450976, lon = -72.678154)
 base_plot <- leaflet() %>%
   addTiles() %>%
@@ -51,7 +52,7 @@ base_plot <- leaflet() %>%
 base_plot
 ```
 Location of Remote Campsite
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 remote_campsite <- data.frame(lat = 42.458549, lon = -72.679581)
 base_plot <- leaflet() %>%
   addTiles() %>%
@@ -61,7 +62,7 @@ base_plot
 ```
 
 Plot of all 3 sites 
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 base_plot <- leaflet() %>%
   addTiles() %>%
   addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,
@@ -74,7 +75,7 @@ base_plot <- leaflet() %>%
 ```
 
 Plotting boundary
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 boundary <- macleish_layers %>% 
 pluck("boundary")
 
@@ -82,31 +83,23 @@ base_plot %>%
 addPolygons(data = boundary, color = "black")
 ```
 Looking at the locations of streams and other water sources:
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles %>% 
 addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
 addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange")
 ```
 
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 macleish_layers %>%
 pluck("streams") %>%
 st_buffer(dist = .1)
 ```
 Not sure how to make a buffer around the streams using leaflet...
 
-Looking at forest types...Tells us where the different forest types are but not what each one represents color wise. Maybe if we could add a legend to know what the colors represent?
-
-```{r, echo = FALSE}
-macleish_layers[["forests"]] %>%
-plot() %>%
-addLegend(colors = "Sheet1_Ve") 
-```
-
 Looking at forest types:
 Naming the color palette:
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 forest_pal <- colorFactor("plasma", 
 macleish_layers %>%
 pluck("forests") %>%
@@ -114,20 +107,20 @@ pull(VegType_21)
 )
 ```
 Outlining the different forests:
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles %>% 
 addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.8, weight = 0.1, popup = ~Sheet1__Na)
 ```
-
-Using the 3m contours because much more detailed compared to the 30 ft.
-```{r, echo = FALSE}
+Contours:
+Using the 3m contours because much more detailed compared to the 30 ft
+```{r,message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles() %>%
 addPolylines(data = pluck(macleish_layers, "contours_3m"), weight = 1, color = "red") 
 ```
 Adding contours to parking, campsites, streams/wetlands, and contour maps:
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles() %>%
 addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,popup = "Group Campsite") %>%
@@ -145,18 +138,18 @@ addTiles %>%
 addCircles(data = pluck(macleish_layers, "challenge_courses"))
 ```
 Coordinates for new campsites
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 BlackBirch_campsite <- data.frame(lat = 42.44788, lon = -72.680015)
 RedOak_campsite <- data.frame(lat = 42.45425, lon = -72.68540)
 ```
 Making cool icons: 
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 campicon <- makeIcon(
   iconUrl = "http://icons.iconarchive.com/icons/thegirltyler/brand-camp/256/Camp-Fire-Stories-icon.png",
   iconWidth = 25, iconHeight = 30)
 ```
 Adding to other maps:
-```{r, echo = TRUE}
+```{r, message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles() %>%
 addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,popup = "Group Campsite") %>%
