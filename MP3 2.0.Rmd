@@ -194,7 +194,7 @@ addMarkers(lng = ~lon, lat = ~lat, data = RedOak_campsite, popup = "New Campsite
 ```
 
 *Discussion:*
-When looking at the group and remote campsites that already exist, they are situated in Old Field White Pine Forest and Sugar Maple Forest, respectively. The campsites that we are suggesting, New Campsite #1 and New Campsite #2, are located in Old Pasture Black Birch Forest and Red Oak Forest, respectively. These two campsites abide by the set criteria, other than the New Campsite #2, the Red Oak Campsite, being right on the cusp of the 500 feet border of a research area.
+When looking at the group and remote campsites that already exist, they are situated in Old Field White Pine Forest and Sugar Maple Forest, respectively. The campsites that we are suggesting, New Campsite #1 and New Campsite #2, are located in Old Pasture Black Birch Forest and Red Oak Forest, respectively. These two campsites abide by the set criteria, other than the New Campsite #2, the Red Oak Campsite, being right on the cusp of the 500 feet border of a research area. After talking to Paul Wetzel and showing him our proposed plan, he pointed out a few things. First, New Campsite #2 is relativly close to Conway Road. Although this not necessarily a bad thing, we do feel it's an important think for potential campers to be aware of. Second, he pointed out that the location of New Campsite #1 is heavily populated by rose bushes. Although beautiful at some point of the year, this may pose an annoyance to campers due to their thorns and may required regular maintenance. 
 
 +1 for including relevant external information in your analysis
 what will it cost?
@@ -211,3 +211,9 @@ Notes for Write-Up:
 Stream doesn't always flow 
 close to a road 
 other one is full of roses that creates umbrella of rose bushes 
+
+*Word Count*
+```{r, message = FALSE, echo = FALSE}
+##Word Count
+wordcountaddin::word_count()
+```
