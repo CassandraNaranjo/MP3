@@ -1,9 +1,9 @@
 ---
 title: "MP3"
-author: "Cassie Naranjo"
+author: "Cassie Naranjo and Amelia Stapleton"
 date: "4/12/2019"
-output:
-    html_document:
+output: 
+  html_document:
     code_folding: hide
 ---
 To do:
@@ -25,7 +25,7 @@ do you see any major roadblocks?
 +0–2 reflects the professor’s judgment of the overall quality of your submission
 0: graphics are relatively simple, confusing, sloppily executed, or not well thought out; analysis is muddled or uninformed
 1: a solid all-around effort, graphics are appropriate, labeled, and contextualized; analysis is reasonable, considered, and well-researched
-2: graphics are special, showing creativity, an original design, and/or exceptional attention to detail; analysis is exceptionally thorough and well thought out
+2: graphics are special, showing creativity, an original design, and/or exceptional attention to detail; analysis is exceptionally thorough and well thought 
 
 ```{r,include = FALSE, echo = FALSE}
 library(tidyverse)
@@ -87,17 +87,13 @@ addTiles %>%
 addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
 addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange")
 ```
-
-```{r, message = FALSE, warning = FALSE}
-macleish_layers %>%
-pluck("streams") %>%
-st_buffer(dist = .1)
+Buffering the streams:
+```{r}
+buffer_streams <- macleish_layers %>%
+  pluck("streams") %>%
+  st_transform() %>%
+  st_buffer(dist = 200)
 ```
-Not sure how to make a buffer around the streams using leaflet...
-
-
-Looking at forest types...Tells us where the different forest types are but not what each one represents color wise. Maybe if we could add a legend to know what the colors represent?
-
 
 Looking at forest types:
 Naming the color palette:
@@ -114,14 +110,14 @@ leaflet() %>%
 addTiles %>% 
 addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.8, weight = 0.1, popup = ~Sheet1__Na)
 ```
-Contours:
-Using the 3m contours because much more detailed compared to the 30 ft
+Code for Contours:
+We chose to use the 3m contour dataset because much more detailed compared to the 30 ft dataset.
 ```{r,message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles() %>%
 addPolylines(data = pluck(macleish_layers, "contours_3m"), weight = 1, color = "red") 
 ```
-Adding contours to parking, campsites, streams/wetlands, and contour maps:
+Code for Adding contours to parking, campsites, streams/wetlands, and contour maps:
 ```{r, message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles() %>%
@@ -133,24 +129,24 @@ addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popu
 addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange") %>%
 addPolylines(data = pluck(macleish_layers, "contours_3m"), weight = 1, color = "red")
 ```
-Challenge Courses
+Code for Location of Challenge Courses
 ```{r, echo = FALSE}
 challenge_area <- leaflet() %>%
 addTiles %>% 
 addCircles(data = pluck(macleish_layers, "challenge_courses"))
 ```
-Coordinates for new campsites
+The choosen coordinates for new campsites
 ```{r, message = FALSE, warning = FALSE}
 BlackBirch_campsite <- data.frame(lat = 42.44788, lon = -72.680015)
 RedOak_campsite <- data.frame(lat = 42.45425, lon = -72.68540)
 ```
-Making cool icons: 
+Code ofr making cool icons: 
 ```{r, message = FALSE, warning = FALSE}
 campicon <- makeIcon(
   iconUrl = "http://icons.iconarchive.com/icons/thegirltyler/brand-camp/256/Camp-Fire-Stories-icon.png",
   iconWidth = 25, iconHeight = 30)
 ```
-Adding to other maps:
+Final map:
 ```{r, message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles() %>%
@@ -171,6 +167,7 @@ addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegTyp
 addPolylines(data = pluck(macleish_layers, "trails"), weight = 3, color = "black")
 ```
 
+Notes for Write-Up:
 Stream doesn't always flow 
 close to a road 
 other one is full of roses that creates umbrella of rose bushes 
