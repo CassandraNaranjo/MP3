@@ -7,7 +7,7 @@ output:
     code_folding: hide
 ---
 **Introduction:**
-Have you ever wanted to go the Macleish Station and enjoy a campsite with friends or on your own, but don't actually want to hike to the campsite? Or perhaps, you are physically unable to hike to one of the already resurrected campsites? Well, we have a solution for you! We have used spatial data of the Macleish Field Station to discover two new campsites locations that are easily accessible from the main parking lot or Conway Road. Both of these proposed campsites follow the guidelines of less than .5 miles way from the parking lot and 200 feet away from a stream or other body of water, more than 500 feet away from a challenge course or research area, relatively flat, within the boundraries of Macleish, and positioned in vegetation that is unlike the two campsites that already exist, the group campsite and the remote campsite.
+Have you ever wanted to go the Macleish Station and enjoy a campsite with friends or on your own, but don't actually want to hike the distance to the campsite? Or perhaps you are physically unable to hike to one of the already resurrected campsites? Well, we have a solution for you! We have used spatial data of the Macleish Field Station to discover two new potential campsite locations that are easily accessible from the main parking lot or Conway Road. Both of these proposed campsites follow the guidelines of: less than 0.5 miles away from the parking lot, 200 feet away from a stream or other body of water, more than 500 feet away from a challenge course or research area, relatively flat, within the boundraries of Macleish, and positioned in vegetation that is unlike the two campsites that already exist, the group campsite and the remote campsite.
 
 +1 for having at least 500 words and no more than 800 words
 
@@ -17,12 +17,6 @@ library(sf)
 library(macleish)
 library(leaflet)
 ```
-
-<<<<<<< HEAD
-=======
-Have you ever wanted to go the Macleish Station and enjoy a campsite with friends or on your own, but don't actually want to hike the distance to the campsite? Or perhaps you are physically unable to hike to one of the already resurrected campsites? Well, we have a solution for you! We have used spatial data of the Macleish Field Station to discover two new potential campsite locations that are easily accessible from the main parking lot or Conway Road. Both of these proposed campsites follow the guidelines of: less than 0.5 miles away from the parking lot, 200 feet away from a stream or other body of water, more than 500 feet away from a challenge course or research area, relatively flat, within the boundraries of Macleish, and positioned in vegetation that is unlike the two campsites that already exist, the group campsite and the remote campsite.
->>>>>>> e80f889f15b02c90d30fa34c6a7b44d6beafc4ac
-
 *Determing the location of the Parking Lot*
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 
@@ -83,17 +77,12 @@ addTiles %>%
 addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
 addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange")
 ```
-<<<<<<< HEAD
 *Adding a buffer the streams to ensure proposed campsites are within 200 feet of a body of water*
-```{r}
-=======
-
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 #Adding a buffer the streams to ensure proposed campsites are within 200 feet of a body of water
 
 proj4_aea <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
 
->>>>>>> 23a2841df5c9d7c89806046b7198eb50f0d40eef
 buffer_streams <- macleish_layers %>%
   pluck("streams") %>%
   st_transform(proj4_aea) %>%
