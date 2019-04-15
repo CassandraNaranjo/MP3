@@ -25,7 +25,7 @@ parking_plot <- leaflet() %>%
              popup = "Parking Lot")
 parking_plot
 ```
-*Determing the location of the group campsite*
+*Determing location of the group campsite*
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 
 group_campsite <- data.frame(lat = 42.450976, lon = -72.678154)
@@ -35,7 +35,7 @@ group_plot <- leaflet() %>%
              popup = "Group Campsite")
 group_plot
 ```
-*Determining the location of the remote campsite*
+*Determining location of the remote campsite*
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 
 remote_campsite <- data.frame(lat = 42.458549, lon = -72.679581)
@@ -45,7 +45,7 @@ remote_plot <- leaflet() %>%
              popup = "Remote Campsite")
 remote_plot
 ```
-*Combining the 3 sites (parking, remote campsite, and group campsite) into one map*
+*Combining parking, remote campsite, and group campsite into one map*
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 
 base_plot <- leaflet() %>%
@@ -75,7 +75,7 @@ addTiles %>%
 addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
 addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange")
 ```
-*Adding a buffer the streams to ensure proposed campsites are within 200 feet of a body of water*
+*Adding a buffer the streams to ensure proposed campsites are within 200 feet *
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 #Adding a buffer the streams to ensure proposed campsites are within 200 feet of a body of water
 
