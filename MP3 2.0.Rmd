@@ -1,31 +1,12 @@
 ---
-title: "MP3"
+title: "Mini Project 3: Accessible Camping!"
 author: "Cassie Naranjo and Amelia Stapleton"
 date: "4/12/2019"
 output: 
   html_document:
     code_folding: hide
 ---
-To do:
-+1 unnecessary messages from R are hidden from being displayed in the HTML
-+1 for using code folding to keep your code hidden, but still make it available.
-+1 for including a problem statement (what are you trying to figure out?)
-+1 for readable, well-documented code (i.e. appropriate comments, using line breaks, breaking code up into logical chunks) that conforms to a style guide
-+1 for including a catchy and/or engaging title
 +1 for having at least 500 words and no more than 800 words
-+1 for including relevant external information in your analysis
-+1 for reporting at least one actionable recommendation (what should Smith DO with your findings?)
-+1 for using a GitHub repository and including a link to it in the footnotes
-+1 for using the Issues tab on GitHub to plan your project
-+1 for including a short discussion on the resources necessary to implement your recommendation:
-what will it cost?
-how long will it take?
-are there any concerns about environmental impact?
-do you see any major roadblocks?
-+0–2 reflects the professor’s judgment of the overall quality of your submission
-0: graphics are relatively simple, confusing, sloppily executed, or not well thought out; analysis is muddled or uninformed
-1: a solid all-around effort, graphics are appropriate, labeled, and contextualized; analysis is reasonable, considered, and well-researched
-2: graphics are special, showing creativity, an original design, and/or exceptional attention to detail; analysis is exceptionally thorough and well thought 
 
 ```{r,include = FALSE, echo = FALSE}
 library(tidyverse)
@@ -33,35 +14,45 @@ library(sf)
 library(macleish)
 library(leaflet)
 ```
-Code for Location of Parking Lot 
-```{r, message = FALSE, warning = FALSE}
+
+Have you ever wanted to go the Macleish Station and enjoy a campsite with friends or on your own, but don't actually want to hike to the campsite? Or perhaps, you are physically unable to hike to one of the already resurrected campsites? Well, we have a solution for you! We have used spatial data of the Macleish Field Station to discover two new campsites locations that are easily accessible from the main parking lot or Conway Road. Both of these proposed campsites follow the guidelines of less than .5 miles way from the parking lot and 200 feet away from a stream or other body of water, more than 500 feet away from a challenge course or research area, relatively flat, within the boundraries of Macleish, and positioned in vegetation that is unlike the two campsites that already exist, the group campsite and the remote campsite.
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determing the location of the Parking Lot 
+
 parking <- data.frame(lat = 42.448013, lon = -72.68066)
-base_plot <- leaflet() %>%
+parking_plot <- leaflet() %>%
   addTiles() %>%
   addMarkers(lng = ~lon, lat = ~lat, data = parking,
              popup = "Parking Lot")
-base_plot
+parking_plot
 ```
-Code for Location of Group Campsite 
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determing the Location of the Group Campsite
+
 group_campsite <- data.frame(lat = 42.450976, lon = -72.678154)
-base_plot <- leaflet() %>%
+group_plot <- leaflet() %>%
   addTiles() %>%
   addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,
              popup = "Group Campsite")
-base_plot
+group_plot
 ```
-Code for Location of Remote Campsite
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determining the Location of the Remote Campsite
+
 remote_campsite <- data.frame(lat = 42.458549, lon = -72.679581)
-base_plot <- leaflet() %>%
+remote_plot <- leaflet() %>%
   addTiles() %>%
   addMarkers(lng = ~lon, lat = ~lat, data = remote_campsite,
              popup = "Remote Campsite")
-base_plot
+remote_plot
 ```
-Code for Plotting of all 3 sites 
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Combining the 3 sites (parking, remote campsite, and group campsite) into one map
+
 base_plot <- leaflet() %>%
   addTiles() %>%
   addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,
@@ -72,86 +63,97 @@ base_plot <- leaflet() %>%
              popup = "Parking Lot") 
   base_plot
 ```
-Code for Plotting Boundary
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determing the Macleisch Station Boundary
 boundary <- macleish_layers %>% 
 pluck("boundary")
 
 base_plot %>%
 addPolygons(data = boundary, color = "black")
 ```
-Code for Locations of Streams and Wetlands:
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determing the Locations of the Streams and Wetlands
+
 leaflet() %>%
 addTiles %>% 
 addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
 addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange")
 ```
-Buffering the streams:
+
 ```{r}
+#Adding a buffer the streams to ensure proposed campsites are within 200 feet of a body of water
 buffer_streams <- macleish_layers %>%
-  pluck("streams") %>%
-  st_transform() %>%
-  st_buffer(dist = 200)
+  pluck("streams")
 ```
 
-Looking at forest types:
-Naming the color palette:
-```{r, message = FALSE, warning = FALSE}
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Looking at the different forest types within Macleish to ensure our new campsites are in a different vegetation zone than previous campsites
+
+#Naming the forest color palette
 forest_pal <- colorFactor("plasma", 
 macleish_layers %>%
 pluck("forests") %>%
 pull(VegType_21)
 )
 ```
-Outlining the different forests:
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Adding the color palette and forest types onto leaflet map
+
 leaflet() %>%
 addTiles %>% 
 addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.8, weight = 0.1, popup = ~Sheet1__Na)
 ```
-Code for Contours:
-We chose to use the 3m contour dataset because much more detailed compared to the 30 ft dataset.
-```{r,message = FALSE, warning = FALSE}
+
+```{r,message = FALSE, warning = FALSE, results = 'hide'}
+#Viewing the Contours of Macleish to assess potential campsite locations and ensure they are housed on relatively flat land
+
+#Using the 3m contour dataset because it is more detailed compared to the 30 ft dataset
+
 leaflet() %>%
 addTiles() %>%
 addPolylines(data = pluck(macleish_layers, "contours_3m"), weight = 1, color = "red") 
 ```
-Code for Adding contours to parking, campsites, streams/wetlands, and contour maps:
-```{r, message = FALSE, warning = FALSE}
-leaflet() %>%
-addTiles() %>%
-addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,popup = "Group Campsite") %>%
-addMarkers(lng = ~lon, lat = ~lat, data = remote_campsite,popup = "Remote Campsite") %>%
-addMarkers(lng = ~lon, lat = ~lat, data = parking,popup = "Parking Lot") %>%
-addCircleMarkers(data = parking, color = "black", radius = 804) %>%
-addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
-addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange") %>%
-addPolylines(data = pluck(macleish_layers, "contours_3m"), weight = 1, color = "red")
-```
-Code for Location of Challenge Courses
-```{r, echo = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determing the location of the challenge courses to allow for 500 feet between any of these locations and our proposed campsites
+
 challenge_area <- leaflet() %>%
 addTiles %>% 
 addCircles(data = pluck(macleish_layers, "challenge_courses"))
 ```
 
-
 Coordinates for new campsites
 
 The choosen coordinates for new campsites
 
+```{r, message = FALSE, warning = FALSE,results = 'hide'}
+#Determing the location of the research areas to allow for 500 feet between any of these locations and our proposed campsites
+
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(data = pluck(macleish_layers, "research"), color = "yellow")
+```
+
 ```{r, message = FALSE, warning = FALSE}
+#The choosen coordinates for new campsites
+
 BlackBirch_campsite <- data.frame(lat = 42.44788, lon = -72.680015)
 RedOak_campsite <- data.frame(lat = 42.45425, lon = -72.68540)
 ```
+
 Code for making cool icons: 
+
 ```{r, message = FALSE, warning = FALSE}
+#Code for making cool icons
+
 campicon <- makeIcon(
   iconUrl = "http://icons.iconarchive.com/icons/thegirltyler/brand-camp/256/Camp-Fire-Stories-icon.png",
   iconWidth = 25, iconHeight = 30)
 ```
-Final map:
+The final map with our proposed campsites and all the criteria that went into determining these locations:
 ```{r, message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles() %>%
@@ -171,6 +173,18 @@ addCircles(data = pluck(macleish_layers, "challenge_courses"), fillOpacity = 1) 
 addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.5, weight = 0.1, popup = ~Sheet1__Na) %>%
 addPolylines(data = pluck(macleish_layers, "trails"), weight = 3, color = "black")
 ```
+
+Discussion:
++1 for including relevant external information in your analysis
+what will it cost?
++1 for reporting at least one actionable recommendation (what should Smith DO with your findings?)
+how long will it take?
+are there any concerns about environmental impact?
+do you see any major roadblocks?
+
+Footnotes:
+Github repository link
+Issues post
 
 Notes for Write-Up:
 Stream doesn't always flow 
