@@ -1,7 +1,7 @@
 ---
 title: "Mini Project 3: Accessible Camping!"
 author: "Cassie Naranjo and Amelia Stapleton"
-date: "4/12/2019"
+date: "4/15/2019"
 output: 
   html_document:
     code_folding: hide
@@ -15,7 +15,7 @@ library(sf)
 library(macleish)
 library(leaflet)
 ```
-*Determing the location of the Parking Lot*
+*Determing the location of the parking lot*
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 
 parking <- data.frame(lat = 42.448013, lon = -72.68066)
@@ -25,7 +25,7 @@ parking_plot <- leaflet() %>%
              popup = "Parking Lot")
 parking_plot
 ```
-*Determing the Location of the Group Campsite*
+*Determing the location of the group campsite*
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 
 group_campsite <- data.frame(lat = 42.450976, lon = -72.678154)
@@ -35,7 +35,7 @@ group_plot <- leaflet() %>%
              popup = "Group Campsite")
 group_plot
 ```
-*Determining the Location of the Remote Campsite*
+*Determining the location of the remote campsite*
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 
 remote_campsite <- data.frame(lat = 42.458549, lon = -72.679581)
@@ -58,7 +58,7 @@ base_plot <- leaflet() %>%
              popup = "Parking Lot") 
   base_plot
 ```
-*Determing the Macleisch Station Boundary*
+*Determing the Macleisch Station boundary*
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 
 boundary <- macleish_layers %>% 
@@ -67,7 +67,7 @@ pluck("boundary")
 base_plot %>%
 addPolygons(data = boundary, color = "black")
 ```
-*Determing the Locations of the Streams and Wetlands*
+*Determing the locations of the streams and wetlands*
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 
 leaflet() %>%
@@ -104,7 +104,7 @@ leaflet() %>%
 addTiles %>% 
 addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.8, weight = 0.1, popup = ~Sheet1__Na)
 ```
-*Viewing the Contours of Macleish to assess potential campsite locations and ensure they are housed on relatively flat land, using the 3m contour dataset because it is more detailed compared to the 30 ft dataset*
+*Viewing the contours of Macleish to assess potential campsite locations and ensure they are housed on relatively flat land, using the 3m contour dataset because it is more detailed compared to the 30 ft dataset*
 ```{r,message = FALSE, warning = FALSE, results = 'hide'}
 
 leaflet() %>%
@@ -161,7 +161,7 @@ campicon <- makeIcon(
   iconUrl = "http://icons.iconarchive.com/icons/thegirltyler/brand-camp/256/Camp-Fire-Stories-icon.png",
   iconWidth = 25, iconHeight = 30)
 ```
-**The final map with our proposed campsites and all the criteria that went into determining these locations**
+**The final map with our proposed campsites and all the criteria that went into determining these locations:**
 ```{r, message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles() %>%
@@ -181,7 +181,7 @@ addCircles(data = pluck(macleish_layers, "challenge_courses"), fillOpacity = 1) 
 addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.5, weight = 0.1, popup = ~Sheet1__Na) %>%
 addPolylines(data = pluck(macleish_layers, "trails"), weight = 3, color = "black")
 ```
-The final map showing the buffers for streams (less than 200 feet from) and research areas/challenge courses (500 feet away):
+*The final map showing the buffers for streams (less than 200 feet from) and research areas/challenge courses (500 feet away):*
 ```{r}
 leaflet() %>%
   addTiles() %>%
@@ -200,7 +200,8 @@ When looking at the group and remote campsites that already exist, they are situ
 what will it cost?
 +1 for reporting at least one actionable recommendation (what should Smith DO with your findings?)
 how long will it take?
-are there any concerns about environmental impact?
+
+We believe that the enviromental impact of this campsite will be minor as long as the resources used to build the campsite itself are sustainable, the folks using the campsite are enviromentally conscious and clean up after themselves, and only approved wood and/or materials are burnt in the firepit. 
 do you see  major roadblocks?
 
 Footnotes:
