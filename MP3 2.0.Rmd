@@ -33,7 +33,7 @@ library(sf)
 library(macleish)
 library(leaflet)
 ```
-Location of Parking Lot 
+Code for Location of Parking Lot 
 ```{r, message = FALSE, warning = FALSE}
 parking <- data.frame(lat = 42.448013, lon = -72.68066)
 base_plot <- leaflet() %>%
@@ -42,7 +42,7 @@ base_plot <- leaflet() %>%
              popup = "Parking Lot")
 base_plot
 ```
-Location of Group Campsite 
+Code for Location of Group Campsite 
 ```{r, message = FALSE, warning = FALSE}
 group_campsite <- data.frame(lat = 42.450976, lon = -72.678154)
 base_plot <- leaflet() %>%
@@ -51,7 +51,7 @@ base_plot <- leaflet() %>%
              popup = "Group Campsite")
 base_plot
 ```
-Location of Remote Campsite
+Code for Location of Remote Campsite
 ```{r, message = FALSE, warning = FALSE}
 remote_campsite <- data.frame(lat = 42.458549, lon = -72.679581)
 base_plot <- leaflet() %>%
@@ -60,8 +60,7 @@ base_plot <- leaflet() %>%
              popup = "Remote Campsite")
 base_plot
 ```
-
-Plot of all 3 sites 
+Code for Plotting of all 3 sites 
 ```{r, message = FALSE, warning = FALSE}
 base_plot <- leaflet() %>%
   addTiles() %>%
@@ -73,8 +72,7 @@ base_plot <- leaflet() %>%
              popup = "Parking Lot") 
   base_plot
 ```
-
-Plotting boundary
+Code for Plotting Boundary
 ```{r, message = FALSE, warning = FALSE}
 boundary <- macleish_layers %>% 
 pluck("boundary")
@@ -82,7 +80,7 @@ pluck("boundary")
 base_plot %>%
 addPolygons(data = boundary, color = "black")
 ```
-Looking at the locations of streams and other water sources:
+Code for Locations of Streams and Wetlands:
 ```{r, message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles %>% 
