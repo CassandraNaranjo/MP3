@@ -198,7 +198,7 @@ addCircles(data = pluck(macleish_layers, "challenge_courses"), fillOpacity = 1) 
 addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.5, weight = 0.1, popup = ~Sheet1__Na) %>%
 addPolylines(data = pluck(macleish_layers, "trails"), weight = 3, color = "black")
 ```
-Final map showing buffers:
+The final map showing the buffers for streams (less than 200 feet from) and research areas/challenge courses (500 feet away):
 ```{r}
 leaflet() %>%
   addTiles() %>%
