@@ -19,8 +19,10 @@ library(leaflet)
 
 Introduction:
 
-Determing the location of the Parking Lot: 
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determing the location of the Parking Lot 
+
 parking <- data.frame(lat = 42.448013, lon = -72.68066)
 parking_plot <- leaflet() %>%
   addTiles() %>%
@@ -28,8 +30,10 @@ parking_plot <- leaflet() %>%
              popup = "Parking Lot")
 parking_plot
 ```
-Determing the Location of the Group Campsite:
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determing the Location of the Group Campsite
+
 group_campsite <- data.frame(lat = 42.450976, lon = -72.678154)
 group_plot <- leaflet() %>%
   addTiles() %>%
@@ -37,8 +41,10 @@ group_plot <- leaflet() %>%
              popup = "Group Campsite")
 group_plot
 ```
-Determining the Location of the Remote Campsite:
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determining the Location of the Remote Campsite
+
 remote_campsite <- data.frame(lat = 42.458549, lon = -72.679581)
 remote_plot <- leaflet() %>%
   addTiles() %>%
@@ -46,8 +52,10 @@ remote_plot <- leaflet() %>%
              popup = "Remote Campsite")
 remote_plot
 ```
-Combining the 3 sites (parking, remote campsite, and group campsite) into one map:
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Combining the 3 sites (parking, remote campsite, and group campsite) into one map
+
 base_plot <- leaflet() %>%
   addTiles() %>%
   addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,
@@ -58,31 +66,35 @@ base_plot <- leaflet() %>%
              popup = "Parking Lot") 
   base_plot
 ```
-Determing the Macleisch Station Boundary:
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determing the Macleisch Station Boundary
 boundary <- macleish_layers %>% 
 pluck("boundary")
 
 base_plot %>%
 addPolygons(data = boundary, color = "black")
 ```
-Determing the Locations of the Streams and Wetlands:
-```{r, message = FALSE, warning = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determing the Locations of the Streams and Wetlands
+
 leaflet() %>%
 addTiles %>% 
 addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
 addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange")
 ```
-Adding a buffer the streams to ensure proposed campsites are within 200 feet of a body of water:
+
 ```{r}
+#Adding a buffer the streams to ensure proposed campsites are within 200 feet of a body of water
 buffer_streams <- macleish_layers %>%
-  pluck("streams") %>%
-  st_transform() %>%
-  st_buffer(dist = 200)
+  pluck("streams")
 ```
-Looking at the different forest types within Macleish to ensure our new campsites are in a different vegetation zone than previous campsites:
-```{r, message = FALSE, warning = FALSE}
-# Naming the forest color palette
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Looking at the different forest types within Macleish to ensure our new campsites are in a different vegetation zone than previous campsites
+
+#Naming the forest color palette
 forest_pal <- colorFactor("plasma", 
 macleish_layers %>%
 pluck("forests") %>%
@@ -90,25 +102,38 @@ pull(VegType_21)
 )
 ```
 
-```{r, message = FALSE, warning = FALSE}
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
 #Adding the color palette and forest types onto leaflet map
+
 leaflet() %>%
 addTiles %>% 
 addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.8, weight = 0.1, popup = ~Sheet1__Na)
 ```
-Viewing the Contours of Macleish to assess potential campsite locations and ensure they are housed on relatively flat land:
-```{r,message = FALSE, warning = FALSE}
+
+```{r,message = FALSE, warning = FALSE, results = 'hide'}
+#Viewing the Contours of Macleish to assess potential campsite locations and ensure they are housed on relatively flat land
+
 #Using the 3m contour dataset because it is more detailed compared to the 30 ft dataset
 
 leaflet() %>%
 addTiles() %>%
 addPolylines(data = pluck(macleish_layers, "contours_3m"), weight = 1, color = "red") 
 ```
-Determing the location of the challenge courses to allow for 500 feet between any of these locations and our proposed campsites:
-```{r, echo = FALSE}
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Determing the location of the challenge courses to allow for 500 feet between any of these locations and our proposed campsites
+
 challenge_area <- leaflet() %>%
 addTiles %>% 
 addCircles(data = pluck(macleish_layers, "challenge_courses"))
+```
+
+```{r, message = FALSE, warning = FALSE,results = 'hide'}
+#Determing the location of the research areas to allow for 500 feet between any of these locations and our proposed campsites
+
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(data = pluck(macleish_layers, "research"), color = "yellow")
 ```
 
 ```{r, message = FALSE, warning = FALSE}
@@ -125,7 +150,7 @@ campicon <- makeIcon(
   iconUrl = "http://icons.iconarchive.com/icons/thegirltyler/brand-camp/256/Camp-Fire-Stories-icon.png",
   iconWidth = 25, iconHeight = 30)
 ```
-The final map with our proposed campsites and all the criteria that went into determining these locations
+The final map with our proposed campsites and all the criteria that went into determining these locations:
 ```{r, message = FALSE, warning = FALSE}
 leaflet() %>%
 addTiles() %>%
