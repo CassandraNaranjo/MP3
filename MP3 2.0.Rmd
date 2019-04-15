@@ -197,8 +197,9 @@ When looking at the group and remote campsites that already exist, they are situ
 *Resources Necessary:*
 In order to make these two new campsites inhabitable for future campers, a wide enough area for a tent, a few chairs, and maybe a fire pit would need to be cleared. This may include needing to chop down and unearth some trees and clearing branches for enough overhead space. Additionally, it may be necessary to build an in-ground fire pit for both warmth and cooking. Chairs and seating arrangements could be built from the chopped down trees or from rocks around the area. We don't believe this process will take very long, but could take up to a week with limited people. The main financial burden is labor cost of both people and machinery. In addition, there are reoccuring costs due to regular maintenance including but not limited to branch/vegetation clearing, trash clean up, and raking would need to occur. We believe that the enviromental impact of this campsite will be minor as long as the resources used to build the campsite itself are sustainable, the folks using the campsite are enviromentally conscious and clean up after themselves, and only approved wood and/or materials are burnt in the firepit. Furthermore, Smith should consider these potential campsites when thinking about making Macleish more accesible to the Smith and Pioneer Valley communities.
 
-Footnotes:
-Github repository link
+
+*Github link*
+https://github.com/CassandraNaranjo/MP3.git
 
 *Word Count*
 ```{r, message = FALSE, echo = FALSE}
