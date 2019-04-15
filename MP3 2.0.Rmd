@@ -211,6 +211,8 @@ addMarkers(lng = ~lon, lat = ~lat, data = RedOak_campsite, popup = "New Campsite
 ```
 
 Discussion:
+When looking at the group and remote campsites that already exist, they are situated in Old Field White Pine Forest and Sugar Maple Forest, respectively. The campsites that we are suggesting, New Campsite #1 and New Campsite #2, are located in Old Pasture Black Birch Forest and Red Oak Forest, respectively. These two campsites abide by the set criteria, other than the New Campsite #2, the Red Oak Campsite, being right on the cusp of the 500 feet border of a research area.
+
 +1 for including relevant external information in your analysis
 what will it cost?
 +1 for reporting at least one actionable recommendation (what should Smith DO with your findings?)
