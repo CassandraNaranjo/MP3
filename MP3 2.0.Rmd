@@ -77,10 +77,26 @@ addTiles %>%
 addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
 addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange")
 ```
+<<<<<<< HEAD
 *Adding a buffer the streams to ensure proposed campsites are within 200 feet of a body of water*
 ```{r}
+=======
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+#Adding a buffer the streams to ensure proposed campsites are within 200 feet of a body of water
+
+proj4_aea <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+
+>>>>>>> 23a2841df5c9d7c89806046b7198eb50f0d40eef
 buffer_streams <- macleish_layers %>%
-  pluck("streams")
+  pluck("streams") %>%
+  st_transform(proj4_aea) %>%
+  st_buffer(dist = 60.96) %>%
+  st_transform(4326)
+
+leaflet() %>%
+  addTiles %>% 
+  addPolygons(data = buffer_streams)
 ```
 *Looking at the different forest types within Macleish to ensure our new campsites are in a different vegetation zone than previous campsites*
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
@@ -108,6 +124,16 @@ addPolylines(data = pluck(macleish_layers, "contours_3m"), weight = 1, color = "
 challenge_area <- leaflet() %>%
 addTiles %>% 
 addCircles(data = pluck(macleish_layers, "challenge_courses"))
+
+buffer_challenge <- macleish_layers %>%
+  pluck("challenge_courses") %>%
+  st_transform(proj4_aea) %>%
+  st_buffer(dist = 152.4) %>%
+  st_transform(4326)
+
+leaflet() %>%
+  addTiles %>% 
+  addPolygons(data = buffer_challenge, weight = 1, color = "red")
 ```
 *Determing the location of the research areas to allow for 500 feet between any of these locations and our proposed campsites*
 ```{r, message = FALSE, warning = FALSE,results = 'hide'}
@@ -115,6 +141,17 @@ addCircles(data = pluck(macleish_layers, "challenge_courses"))
 leaflet() %>%
   addTiles() %>%
   addPolygons(data = pluck(macleish_layers, "research"), color = "yellow")
+
+buffer_research <- macleish_layers %>%
+  pluck("research") %>%
+  st_transform(proj4_aea) %>%
+  st_buffer(dist = 152.4) %>%
+  st_transform(4326)
+
+leaflet() %>%
+  addTiles %>% 
+  addPolygons(data = buffer_research, weight = 1, color = "yellow")
+
 ```
 *The choosen coordinates for new campsites, found by trial and error*
 ```{r, message = FALSE, warning = FALSE}
@@ -151,14 +188,27 @@ addCircles(data = pluck(macleish_layers, "challenge_courses"), fillOpacity = 1) 
 addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.5, weight = 0.1, popup = ~Sheet1__Na) %>%
 addPolylines(data = pluck(macleish_layers, "trails"), weight = 3, color = "black")
 ```
+The final map showing the buffers for streams (less than 200 feet from) and research areas/challenge courses (500 feet away):
+```{r}
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = ~lon, lat = ~lat, data = BlackBirch_campsite,
+             popup = "New Campsite #1", icon = campicon) %>%
+addMarkers(lng = ~lon, lat = ~lat, data = RedOak_campsite, popup = "New Campsite #2", icon = campicon) %>%
+  addPolygons(data = buffer_streams) %>%
+  addPolygons(data = buffer_challenge, weight = 1, color = "red") %>%
+  addPolygons(data = buffer_research, weight = 1, color = "yellow")
+```
 
 Discussion:
+When looking at the group and remote campsites that already exist, they are situated in Old Field White Pine Forest and Sugar Maple Forest, respectively. The campsites that we are suggesting, New Campsite #1 and New Campsite #2, are located in Old Pasture Black Birch Forest and Red Oak Forest, respectively. These two campsites abide by the set criteria, other than the New Campsite #2, the Red Oak Campsite, being right on the cusp of the 500 feet border of a research area.
+
 +1 for including relevant external information in your analysis
 what will it cost?
 +1 for reporting at least one actionable recommendation (what should Smith DO with your findings?)
 how long will it take?
 are there any concerns about environmental impact?
-do you see any major roadblocks?
+do you see  major roadblocks?
 
 Footnotes:
 Github repository link
