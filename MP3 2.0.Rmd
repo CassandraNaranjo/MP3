@@ -139,6 +139,7 @@ challenge_area <- leaflet() %>%
 addTiles %>% 
 addCircles(data = pluck(macleish_layers, "challenge_courses"))
 ```
+
 Coordinates for new campsites
 ```{r, message = FALSE, warning = FALSE}
 BlackBirch_campsite <- data.frame(lat = 42.44788, lon = -72.680015)
