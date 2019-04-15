@@ -138,14 +138,14 @@ addCircles(data = pluck(macleish_layers, "challenge_courses"))
 
 
 Coordinates for new campsites
-=======
+
 The choosen coordinates for new campsites
->>>>>>> 91ce240164a376afe276b84c9f538c3b3efda170
+
 ```{r, message = FALSE, warning = FALSE}
 BlackBirch_campsite <- data.frame(lat = 42.44788, lon = -72.680015)
 RedOak_campsite <- data.frame(lat = 42.45425, lon = -72.68540)
 ```
-Code ofr making cool icons: 
+Code for making cool icons: 
 ```{r, message = FALSE, warning = FALSE}
 campicon <- makeIcon(
   iconUrl = "http://icons.iconarchive.com/icons/thegirltyler/brand-camp/256/Camp-Fire-Stories-icon.png",
