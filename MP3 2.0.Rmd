@@ -60,12 +60,123 @@ base_plot <- leaflet() %>%
   base_plot
 ```
 
+Plotting boundary
 ```{r}
 boundary <- macleish_layers %>% 
-  pluck("boundary")
+pluck("boundary")
 
 base_plot %>%
-  addPolygons(data = boundary, color = "black")
+addPolygons(data = boundary, color = "black")
+```
+Looking at the locations of streams and other water sources:
+```{r}
+leaflet() %>%
+addTiles %>% 
+addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
+addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange")
 ```
 
-hahahahahahahah
+```{r}
+macleish_layers %>%
+pluck("streams") %>%
+st_buffer(dist = .1)
+```
+Not sure how to make a buffer around the streams using leaflet...
+
+Looking at forest types...Tells us where the different forest types are but not what each one represents color wise. Maybe if we could add a legend to know what the colors represent?
+
+```{r}
+macleish_layers[["forests"]] %>%
+plot() %>%
+addLegend(colors = "Sheet1_Ve") 
+```
+
+Looking at forest types:
+Naming the color palette:
+```{r}
+forest_pal <- colorFactor("plasma", 
+macleish_layers %>%
+pluck("forests") %>%
+pull(VegType_21)
+)
+```
+Outlining the different forests:
+```{r}
+leaflet() %>%
+addTiles %>% 
+addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.8, weight = 0.1, popup = ~Sheet1__Na)
+```
+
+Using the 3m contours because much more detailed compared to the 30 ft.
+```{r}
+leaflet() %>%
+addTiles() %>%
+addPolylines(data = pluck(macleish_layers, "contours_3m"), weight = 1, color = "red") 
+```
+
+Determining the boundary of the macleish field staton that is smith college land:
+```{r}
+leaflet() %>%
+```
+
+Adding contours to parking, campsites, streams/wetlands, and contour maps:
+```{r}
+leaflet() %>%
+addTiles() %>%
+addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,popup = "Group Campsite") %>%
+addMarkers(lng = ~lon, lat = ~lat, data = remote_campsite,popup = "Remote Campsite") %>%
+addMarkers(lng = ~lon, lat = ~lat, data = parking,popup = "Parking Lot") %>%
+addCircleMarkers(data = parking, color = "black", radius = 804) %>%
+addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
+addPolylines(data = pluck(macleish_layers, "streams"), weight = 3, color = "orange") %>%
+addPolylines(data = pluck(macleish_layers, "contours_3m"), weight = 1, color = "red")
+```
+
+Challenge Course Areas
+```{r}
+macleish_layers[["challenge_courses"]] %>%
+plot()
+```
+
+```{r}
+challenge_area <- leaflet() %>%
+addTiles %>% 
+addCircles(data = pluck(macleish_layers, "challenge_courses"))
+```
+Coordinates for new campsites
+```{r}
+BlackBirch_campsite <- data.frame(lat = 42.44788, lon = -72.680015)
+RedOak_campsite <- data.frame(lat = 42.45425, lon = -72.68540)
+```
+
+Making cool icons: 
+```{r}
+campicon <- makeIcon(
+  iconUrl = "http://icons.iconarchive.com/icons/thegirltyler/brand-camp/256/Camp-Fire-Stories-icon.png",
+  iconWidth = 25, iconHeight = 30)
+```
+
+Adding to other maps:
+```{r}
+leaflet() %>%
+addTiles() %>%
+addMarkers(lng = ~lon, lat = ~lat, data = group_campsite,popup = "Group Campsite") %>%
+addMarkers(lng = ~lon, lat = ~lat, data = remote_campsite,popup = "Remote Campsite") %>%
+addMarkers(lng = ~lon, lat = ~lat, data = parking,popup = "Parking Lot") %>%
+addMarkers(lng = ~lon, lat = ~lat, data = BlackBirch_campsite,
+             popup = "New Campsite #1", icon = campicon) %>%
+addMarkers(lng = ~lon, lat = ~lat, data = RedOak_campsite, popup = "New Campsite #2", icon = campicon) %>%
+addCircles(data = parking, radius = 804, color = "grey") %>%
+addPolygons(data = boundary, color = "black") %>%
+addPolygons(data = pluck(macleish_layers, "wetlands"), color = ~SHAPE_AREA, popup = ~IT_VALDESC) %>%
+addPolylines(data = pluck(macleish_layers, "streams"), weight = 7, color = "navy") %>%
+addPolylines(data = pluck(macleish_layers, "contours_3m"), weight = 1, color = "red") %>%
+addPolygons(data = pluck(macleish_layers, "research"), color = "yellow") %>%
+addCircles(data = pluck(macleish_layers, "challenge_courses"), fillOpacity = 1) %>%
+addPolygons(data = pluck(macleish_layers, "forests"), color = ~forest_pal(VegType_21), fillOpacity = 0.5, weight = 0.1, popup = ~Sheet1__Na) %>%
+addPolylines(data = pluck(macleish_layers, "trails"), weight = 3, color = "black")
+```
+
+Stream doesn't always flow 
+close to a road 
+other one is full of roses that creates umbrella of rose bushes 
